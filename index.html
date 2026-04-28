@@ -6,24 +6,70 @@
         body {
             font-family: Arial;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 50px;
             background-color: #f0f0f0;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
+            margin: 10px;
+        }
+        .section {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        input, textarea {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Welcome</h1>
-    <p id="text">Click the button</p>
-    <button onclick="changeText()">Click Me</button>
+    <h1>My App</h1>
+
+    <!-- Navigation -->
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('contact')">Contact</button>
+
+    <!-- Home Section -->
+    <div id="home" class="section active">
+        <h2>Welcome</h2>
+        <p id="text">Click the button</p>
+        <button onclick="changeText()">Click Me</button>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form onsubmit="submitForm(event)">
+            <br>
+            <input type="text" placeholder="Your Name" required><br>
+            <input type="email" placeholder="Your Email" required><br>
+            <textarea placeholder="Your Message" required></textarea><br>
+            <button type="submit">Send</button>
+        </form>
+        <p id="msg"></p>
+    </div>
 
     <script>
         function changeText() {
             document.getElementById("text").innerHTML = "Hello! You clicked the button!";
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            document.getElementById("msg").innerHTML = "Message sent successfully!";
         }
     </script>
 
